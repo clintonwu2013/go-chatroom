@@ -43,7 +43,7 @@ type WebSocketConnection struct {
 type WsPayload struct {
 	Action   string              `json:"action"`
 	Message  string              `json:"message"`
-	Username string              `json:username`
+	Username string              `json:"username"`
 	Conn     WebSocketConnection `json:"-"`
 }
 
