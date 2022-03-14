@@ -59,6 +59,9 @@
 <script>
     let socket = null;
     let o = document.getElementById("output");
+    let messageField = document.getElementById("message");
+    let userField = document.getElementById("username");
+
     window.onbeforeunload = function(){
         console.log("leaving");
         let jsonData = {};
@@ -125,10 +128,28 @@
                     console.log("no connection");
                     return false;
                 }
-                event.preventDefault();
-                event.stopPropagation();
-                sendMessage();
+                
+
+                if((userField.value === "") || (messageField.value === "")){
+                    alert("Please fill out the username and the message");
+                    return false;
+                } else{
+                    event.preventDefault();
+                    event.stopPropagation();
+                    sendMessage();
+                }
+                
             }
+        });
+
+        document.getElementById("sendBtn").addEventListener("click", function(event){
+            if((userField.value === "") || (messageField.value === "")){
+                alert("Please fill out the username and the message");
+                return false;
+            } else{
+               sendMessage();
+            }
+            
         })
 
     })
