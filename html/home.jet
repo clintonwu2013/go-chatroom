@@ -42,6 +42,8 @@
                 <a href="javascript:void(0);" class="btn btn-outline-secondary" id="sendBtn">Send Message</a>
 
                 <input type="hidden" name="action" id="action">
+
+                <div id="status" class="mt2 float-end"></div>
                 
                 <div id="output" class="chatbox">
                     
@@ -70,16 +72,22 @@
     }
     document.addEventListener("DOMContentLoaded",function(){
         socket = new WebSocket("ws://127.0.0.1:8080/ws");
+        const offline = `<span class="badge bg-danger">not Connected</span>`
+        const online = `<span class="badge bg-success">Connected</span>`
+        let statusDiv = document.getElementById("status");
         socket.onopen = ()=>{
-            console.log("successfully connected!!!")
+            console.log("successfully connected!!!");
+            statusDiv.innerHTML = online;
         }
 
         socket.onclose = ()=>{
-            console.log("connection closed")
+            console.log("connection closed");
+            statusDiv.innerHTML = offline;
         }
 
         socket.onerror = error=>{
             console.log("there was an error")
+            statusDiv.innerHTML = offline;
         }
 
         socket.onmessage = msg=>{
